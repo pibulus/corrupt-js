@@ -8,6 +8,23 @@ export default function Home() {
         <title>corrupt.js - Interactive Text Corruption</title>
         <meta name="description" content="A lightweight library for adding interactive glitch effects to text on hover" />
         <script src="/corrupt.js"></script>
+        <style>{`
+          .corrupted-char {
+            color: #ff00ff;
+            text-shadow: 0 0 5px rgba(255,0,255,0.8);
+            animation: glitch 0.1s infinite alternate;
+          }
+
+          @keyframes glitch {
+            0% { transform: translate(0); }
+            100% { transform: translate(1px, -1px); }
+          }
+
+          .corrupt:hover {
+            cursor: pointer;
+            filter: contrast(1.2) brightness(1.1);
+          }
+        `}</style>
       </Head>
 
       <div class="min-h-screen bg-gradient-to-br from-purple-100 to-pink-100">

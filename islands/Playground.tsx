@@ -6,8 +6,9 @@ export default function Playground() {
   const style = useSignal("glitch");
   const rate = useSignal(0.3);
   const maxCorruptions = useSignal(2);
-  const flicker = useSignal(false);
-  const wave = useSignal(false);
+  const mode = useSignal("random");
+  const easing = useSignal("easeOut");
+  const duration = useSignal(1000);
   const sticky = useSignal(false);
   const textRef = useRef<HTMLHeadingElement>(null);
   const corruptInstance = useRef<any>(null);
@@ -31,13 +32,14 @@ export default function Playground() {
           style: style.value,
           rate: rate.value,
           maxCorruptions: maxCorruptions.value,
-          flicker: flicker.value,
-          wave: wave.value,
+          mode: mode.value,
+          easing: easing.value,
+          duration: duration.value,
           sticky: sticky.value
         });
       }
     }
-  }, [style.value, rate.value, maxCorruptions.value, flicker.value, wave.value, sticky.value]);
+  }, [style.value, rate.value, maxCorruptions.value, mode.value, easing.value, duration.value, sticky.value]);
 
   return (
     <div class="bg-white rounded-lg border-4 border-black p-4 sm:p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
@@ -80,6 +82,9 @@ export default function Playground() {
             <option value="zalgo">Zalgo</option>
             <option value="melt">Melt</option>
             <option value="ascii">ASCII</option>
+            <option value="binary">Binary</option>
+            <option value="hex">Hex</option>
+            <option value="dots">Dots</option>
           </select>
         </div>
 
@@ -115,38 +120,70 @@ export default function Playground() {
           />
         </div>
 
-        {/* Effect Toggles */}
-        <div class="md:col-span-2">
-          <label class="block text-sm font-bold mb-2">Effects</label>
-          <div class="flex gap-4 flex-wrap">
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={flicker.value}
-                onChange={(e) => flicker.value = e.currentTarget.checked}
-                class="w-4 h-4"
-              />
-              <span>Flicker</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={wave.value}
-                onChange={(e) => wave.value = e.currentTarget.checked}
-                class="w-4 h-4"
-              />
-              <span>Wave</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={sticky.value}
-                onChange={(e) => sticky.value = e.currentTarget.checked}
-                class="w-4 h-4"
-              />
-              <span>Sticky</span>
-            </label>
-          </div>
+        {/* Animation Mode */}
+        <div>
+          <label class="block text-sm font-bold mb-2">Animation Mode</label>
+          <select
+            value={mode.value}
+            onChange={(e) => mode.value = e.currentTarget.value}
+            class="w-full px-4 py-2 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="random">Random (Default)</option>
+            <option value="cascade">Cascade</option>
+            <option value="explode">Explode</option>
+            <option value="shake">Shake</option>
+            <option value="fade">Fade</option>
+            <option value="typewriter">Typewriter</option>
+            <option value="wave">Wave</option>
+            <option value="flicker">Flicker</option>
+          </select>
+        </div>
+
+        {/* Easing Function */}
+        <div>
+          <label class="block text-sm font-bold mb-2">Easing</label>
+          <select
+            value={easing.value}
+            onChange={(e) => easing.value = e.currentTarget.value}
+            class="w-full px-4 py-2 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="linear">Linear</option>
+            <option value="easeIn">Ease In</option>
+            <option value="easeOut">Ease Out</option>
+            <option value="easeInOut">Ease In Out</option>
+            <option value="bounce">Bounce</option>
+            <option value="elastic">Elastic</option>
+          </select>
+        </div>
+
+        {/* Duration */}
+        <div>
+          <label class="block text-sm font-bold mb-2">
+            Duration: {duration.value}ms
+          </label>
+          <input
+            type="range"
+            min="200"
+            max="3000"
+            step="100"
+            value={duration.value}
+            onInput={(e) => duration.value = parseInt(e.currentTarget.value)}
+            class="w-full"
+          />
+        </div>
+
+        {/* Sticky Effect */}
+        <div>
+          <label class="block text-sm font-bold mb-2">Options</label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={sticky.value}
+              onChange={(e) => sticky.value = e.currentTarget.checked}
+              class="w-4 h-4"
+            />
+            <span>Sticky (10% chance to stay corrupted)</span>
+          </label>
         </div>
       </div>
 
@@ -168,7 +205,10 @@ export default function Playground() {
 new Corrupt('.my-text', {
   style: '${style.value}',
   rate: ${rate.value},
-  maxCorruptions: ${maxCorruptions.value}${flicker.value ? ',\n  flicker: true' : ''}${wave.value ? ',\n  wave: true' : ''}${sticky.value ? ',\n  sticky: true' : ''}
+  maxCorruptions: ${maxCorruptions.value},
+  mode: '${mode.value}',
+  easing: '${easing.value}',
+  duration: ${duration.value}${sticky.value ? ',\n  sticky: true' : ''}
 });
 </script>`}</pre>
         </div>
