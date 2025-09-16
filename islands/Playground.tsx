@@ -59,18 +59,18 @@ export default function Playground() {
   return (
     <div class="max-w-2xl mx-auto">
       {/* Display Area - No title, just the interactive text */}
-      <div class="bg-yellow-100 border-4 border-black p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-8">
+      <div class="bg-gradient-to-br from-yellow-200 to-orange-200 border-4 border-black p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-shadow mb-8">
         <h1
           ref={textRef}
-          class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-center cursor-pointer select-none break-words transition-all hover:scale-105"
-          style="font-family: 'Space Mono', 'Courier New', monospace;"
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center cursor-pointer select-none break-words transition-transform hover:scale-105"
+          style="letter-spacing: -0.02em;"
         >
           {text.value}
         </h1>
       </div>
 
       {/* Controls Panel */}
-      <div class="bg-pink-100 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-6">
+      <div class="bg-gradient-to-br from-purple-100 to-pink-100 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-shadow space-y-6">
         {/* Text Input */}
         <div>
           <label class="block text-sm font-black uppercase mb-2">Text</label>
@@ -80,7 +80,6 @@ export default function Playground() {
             onInput={(e) => text.value = e.currentTarget.value}
             class="w-full px-4 py-3 border-3 border-black bg-white text-lg font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
             placeholder="Type something fun..."
-            style="font-family: 'Space Mono', monospace;"
           />
         </div>
 
@@ -92,7 +91,6 @@ export default function Playground() {
               value={style.value}
               onChange={(e) => style.value = e.currentTarget.value}
               class="w-full appearance-none px-4 py-3 pr-10 border-3 border-black bg-white text-lg font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
-              style="font-family: 'Space Mono', monospace;"
             >
               {styles.map(({ value, label, icon }) => (
                 <option key={value} value={value}>
@@ -113,8 +111,8 @@ export default function Playground() {
           {/* Corruption Amount Slider */}
           <div>
             <div class="flex justify-between mb-2">
-              <label class="text-sm font-black uppercase">Corruption</label>
-              <span class="text-sm font-black bg-black text-white px-2 py-1">{corruption.value}%</span>
+              <label class="text-sm font-black uppercase tracking-wide">Corruption</label>
+              <span class="text-sm font-black bg-black text-white px-2 py-1 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">{corruption.value}%</span>
             </div>
             <div class="relative">
               <input
@@ -127,8 +125,8 @@ export default function Playground() {
                 class="w-full h-4 bg-white border-3 border-black appearance-none cursor-pointer slider rounded-none"
                 style={`
                   background: linear-gradient(to right,
-                    #ff00ff 0%,
-                    #ff00ff ${corruption.value}%,
+                    black 0%,
+                    black ${corruption.value}%,
                     white ${corruption.value}%,
                     white 100%);
                 `}
@@ -143,8 +141,8 @@ export default function Playground() {
           {/* Speed Slider */}
           <div>
             <div class="flex justify-between mb-2">
-              <label class="text-sm font-black uppercase">Speed</label>
-              <span class="text-sm font-black bg-black text-white px-2 py-1">{speed.value}%</span>
+              <label class="text-sm font-black uppercase tracking-wide">Speed</label>
+              <span class="text-sm font-black bg-black text-white px-2 py-1 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">{speed.value}%</span>
             </div>
             <div class="relative">
               <input
@@ -157,8 +155,8 @@ export default function Playground() {
                 class="w-full h-4 bg-white border-3 border-black appearance-none cursor-pointer slider rounded-none"
                 style={`
                   background: linear-gradient(to right,
-                    #00ff00 0%,
-                    #00ff00 ${speed.value}%,
+                    black 0%,
+                    black ${speed.value}%,
                     white ${speed.value}%,
                     white 100%);
                 `}
@@ -173,8 +171,8 @@ export default function Playground() {
           {/* Duration Slider */}
           <div>
             <div class="flex justify-between mb-2">
-              <label class="text-sm font-black uppercase">Duration</label>
-              <span class="text-sm font-black bg-black text-white px-2 py-1">
+              <label class="text-sm font-black uppercase tracking-wide">Duration</label>
+              <span class="text-sm font-black bg-black text-white px-2 py-1 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">
                 {duration.value === 0 ? 'QUICK' : duration.value === 100 ? 'FOREVER' : `${duration.value}%`}
               </span>
             </div>
@@ -189,8 +187,8 @@ export default function Playground() {
                 class="w-full h-4 bg-white border-3 border-black appearance-none cursor-pointer slider rounded-none"
                 style={`
                   background: linear-gradient(to right,
-                    #00ffff 0%,
-                    #00ffff ${duration.value}%,
+                    black 0%,
+                    black ${duration.value}%,
                     white ${duration.value}%,
                     white 100%);
                 `}
