@@ -77,12 +77,12 @@ export default function Home() {
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
-              { style: 'witchhouse', text: 'WITCHHOUSE', desc: 'Dark occult vibes' },
-              { style: 'sparkle', text: 'SPARKLE', desc: 'Cute chaos energy' },
-              { style: 'matrix', text: 'MATRIX', desc: 'Digital rain effect' },
-              { style: 'glitch', text: 'GLITCH', desc: 'Classic corruption' },
-              { style: 'zalgo', text: 'ZALGO', desc: 'Cursed text' },
-              { style: 'melt', text: 'MELT', desc: 'Dripping pixels' },
+              { style: 'witchhouse', text: 'WITCHHOUSE', desc: 'Dark occult vibes • Shakes violently' },
+              { style: 'sparkle', text: 'SPARKLE', desc: 'Cute chaos • Cascades left to right' },
+              { style: 'matrix', text: 'MATRIX', desc: 'Digital rain • Types out corruption' },
+              { style: 'glitch', text: 'GLITCH', desc: 'Classic corruption • Rapid flicker' },
+              { style: 'zalgo', text: 'ZALGO', desc: 'Cursed text • Explodes from center' },
+              { style: 'melt', text: 'MELT', desc: 'Dripping pixels • Fades in/out' },
             ].map(({ style, text, desc }) => (
               <div
                 key={style}
