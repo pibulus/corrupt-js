@@ -9,10 +9,28 @@ export default function Home() {
         <meta name="description" content="A lightweight library for adding interactive glitch effects to text on hover" />
         <script src="/corrupt.js"></script>
         <style>{`
+          /* Font fallback stack for better Unicode support */
+          body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                        'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+                        'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial,
+                        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+                        'Noto Color Emoji', sans-serif;
+          }
+
+          .corrupt {
+            font-family: 'Courier New', Courier, 'Lucida Console', Monaco,
+                        'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+                        'Liberation Mono', Consolas, monospace,
+                        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+          }
+
           .corrupted-char {
             color: #ff00ff;
             text-shadow: 0 0 5px rgba(255,0,255,0.8);
             animation: glitch 0.1s infinite alternate;
+            /* Ensure corrupted chars use monospace for consistency */
+            font-family: 'Courier New', Courier, monospace;
           }
 
           @keyframes glitch {
