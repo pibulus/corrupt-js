@@ -49,36 +49,49 @@ export default function Home() {
             -webkit-appearance: none;
             appearance: none;
             outline: none;
+            border-radius: 0 !important;
           }
 
           input[type="range"].slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             background: black;
-            border: 3px solid white;
+            border: 4px solid white;
             cursor: pointer;
-            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+            box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+            margin-top: -8px;
           }
 
           input[type="range"].slider::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             background: black;
-            border: 3px solid white;
+            border: 4px solid white;
             cursor: pointer;
-            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+            box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+            border-radius: 0;
           }
 
           input[type="range"].slider::-webkit-slider-thumb:hover {
             transform: scale(1.1);
-            box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
           }
 
           input[type="range"].slider::-moz-range-thumb:hover {
             transform: scale(1.1);
-            box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+          }
+
+          input[type="range"].slider::-webkit-slider-thumb:active {
+            transform: scale(0.95);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+          }
+
+          input[type="range"].slider::-moz-range-thumb:active {
+            transform: scale(0.95);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
           }
         `}</style>
       </Head>
@@ -129,8 +142,6 @@ export default function Home() {
 
         {/* Examples Grid */}
         <section class="container mx-auto px-4 py-12">
-          <h2 class="text-3xl font-black mb-8 text-center">6 Built-in Styles</h2>
-
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto">
             {[
               { style: 'witch', text: '†WITCH†', desc: 'Occult shake' },
@@ -158,7 +169,6 @@ export default function Home() {
 
         {/* Interactive Playground */}
         <section class="container mx-auto px-4 py-12">
-          <h2 class="text-3xl font-black mb-8 text-center">Playground</h2>
           <Playground />
         </section>
 

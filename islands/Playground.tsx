@@ -4,8 +4,9 @@ import { useEffect, useRef } from "preact/hooks";
 export default function Playground() {
   const text = useSignal("HOVER TO CORRUPT");
   const style = useSignal("witch");
-  const intensity = useSignal(50);  // 0-100 scale for simplicity
-  const speed = useSignal(50);  // 0-100 scale for speed
+  const corruption = useSignal(50);  // Amount of corruption (0-100)
+  const speed = useSignal(50);  // Speed of animation (0-100)
+  const duration = useSignal(50);  // How long effect lasts (0-100)
   const textRef = useRef<HTMLHeadingElement>(null);
   const corruptInstance = useRef<any>(null);
 
@@ -32,23 +33,28 @@ export default function Playground() {
       // Create new Corrupt instance with current settings
       // @ts-ignore
       if (window.Corrupt) {
-        // Convert intensity (0-100) to rate (0-1) and maxCorruptions (1-5)
-        const rate = intensity.value / 200;  // 50% = 0.25 rate
-        const maxCorruptions = Math.ceil(intensity.value / 20);  // 50% = 3 chars
+        // Convert corruption (0-100) to rate (0.05-0.5) and maxCorruptions (1-8)
+        const rate = 0.05 + (corruption.value / 100) * 0.45;  // 0% = 0.05, 100% = 0.5
+        const maxCorruptions = Math.max(1, Math.round((corruption.value / 100) * 8));  // 0% = 1, 100% = 8
 
-        // Convert speed (0-100) to duration (2000-200ms)
-        const duration = 2200 - (speed.value * 20);  // 50% = 1200ms
+        // Convert speed (0-100) to animation duration (3000-200ms)
+        const animDuration = 3000 - (speed.value / 100) * 2800;  // 0% = 3000ms (slow), 100% = 200ms (fast)
+
+        // Convert duration (0-100) to hover duration multiplier
+        // This affects how long the effect persists (not implemented in base library, but we can hack it)
+        const persist = duration.value / 100;  // Will use this for continuous effect
 
         // @ts-ignore
         corruptInstance.current = new window.Corrupt(textRef.current, {
           style: style.value,
           rate: rate,
           maxCorruptions: maxCorruptions,
-          duration: duration
+          duration: animDuration,
+          continuous: true  // This will keep it animating
         });
       }
     }
-  }, [style.value, intensity.value, speed.value]);
+  }, [style.value, corruption.value, speed.value, duration.value]);
 
   return (
     <div class="max-w-2xl mx-auto">
@@ -104,32 +110,32 @@ export default function Playground() {
 
         {/* Neo-brutalist Sliders */}
         <div class="space-y-4">
-          {/* Intensity Slider */}
+          {/* Corruption Amount Slider */}
           <div>
             <div class="flex justify-between mb-2">
-              <label class="text-sm font-black uppercase">Intensity</label>
-              <span class="text-sm font-black bg-black text-white px-2 py-1">{intensity.value}%</span>
+              <label class="text-sm font-black uppercase">Corruption</label>
+              <span class="text-sm font-black bg-black text-white px-2 py-1">{corruption.value}%</span>
             </div>
             <div class="relative">
               <input
                 type="range"
-                min="10"
+                min="0"
                 max="100"
-                step="10"
-                value={intensity.value}
-                onInput={(e) => intensity.value = parseInt(e.currentTarget.value)}
-                class="w-full h-3 bg-white border-2 border-black appearance-none cursor-pointer slider"
+                step="5"
+                value={corruption.value}
+                onInput={(e) => corruption.value = parseInt(e.currentTarget.value)}
+                class="w-full h-4 bg-white border-3 border-black appearance-none cursor-pointer slider rounded-none"
                 style={`
                   background: linear-gradient(to right,
-                    black 0%,
-                    black ${intensity.value}%,
-                    white ${intensity.value}%,
+                    #ff00ff 0%,
+                    #ff00ff ${corruption.value}%,
+                    white ${corruption.value}%,
                     white 100%);
                 `}
               />
               <div class="flex justify-between text-xs font-bold mt-1">
-                <span>SUBTLE</span>
-                <span>WILD</span>
+                <span>CLEAN</span>
+                <span>CHAOS</span>
               </div>
             </div>
           </div>
@@ -143,23 +149,55 @@ export default function Playground() {
             <div class="relative">
               <input
                 type="range"
-                min="10"
+                min="0"
                 max="100"
-                step="10"
+                step="5"
                 value={speed.value}
                 onInput={(e) => speed.value = parseInt(e.currentTarget.value)}
-                class="w-full h-3 bg-white border-2 border-black appearance-none cursor-pointer slider"
+                class="w-full h-4 bg-white border-3 border-black appearance-none cursor-pointer slider rounded-none"
                 style={`
                   background: linear-gradient(to right,
-                    black 0%,
-                    black ${speed.value}%,
+                    #00ff00 0%,
+                    #00ff00 ${speed.value}%,
                     white ${speed.value}%,
                     white 100%);
                 `}
               />
               <div class="flex justify-between text-xs font-bold mt-1">
                 <span>SLOW</span>
-                <span>FAST</span>
+                <span>HYPER</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Duration Slider */}
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-black uppercase">Duration</label>
+              <span class="text-sm font-black bg-black text-white px-2 py-1">
+                {duration.value === 0 ? 'QUICK' : duration.value === 100 ? 'FOREVER' : `${duration.value}%`}
+              </span>
+            </div>
+            <div class="relative">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="5"
+                value={duration.value}
+                onInput={(e) => duration.value = parseInt(e.currentTarget.value)}
+                class="w-full h-4 bg-white border-3 border-black appearance-none cursor-pointer slider rounded-none"
+                style={`
+                  background: linear-gradient(to right,
+                    #00ffff 0%,
+                    #00ffff ${duration.value}%,
+                    white ${duration.value}%,
+                    white 100%);
+                `}
+              />
+              <div class="flex justify-between text-xs font-bold mt-1">
+                <span>QUICK</span>
+                <span>FOREVER</span>
               </div>
             </div>
           </div>
@@ -173,8 +211,8 @@ export default function Playground() {
           <pre style="font-family: 'Space Mono', 'Courier New', monospace;">{`<span
   class="corrupt"
   data-corrupt-style="${style.value}"
-  data-corrupt-rate="${(intensity.value / 200).toFixed(2)}"
-  data-corrupt-chars="${Math.ceil(intensity.value / 20)}"
+  data-corrupt-rate="${(0.05 + (corruption.value / 100) * 0.45).toFixed(2)}"
+  data-corrupt-chars="${Math.max(1, Math.round((corruption.value / 100) * 8))}"
 >
   ${text.value}
 </span>
@@ -183,9 +221,9 @@ export default function Playground() {
 <script>
 new Corrupt('.my-text', {
   style: '${style.value}',
-  rate: ${(intensity.value / 200).toFixed(2)},
-  maxCorruptions: ${Math.ceil(intensity.value / 20)},
-  duration: ${2200 - (speed.value * 20)}
+  rate: ${(0.05 + (corruption.value / 100) * 0.45).toFixed(2)},
+  maxCorruptions: ${Math.max(1, Math.round((corruption.value / 100) * 8))},
+  duration: ${3000 - (speed.value / 100) * 2800}
 });
 </script>`}</pre>
         </div>
