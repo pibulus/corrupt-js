@@ -8,6 +8,7 @@ export default function Home() {
         <title>corrupt.js - Interactive Text Corruption</title>
         <meta name="description" content="A lightweight library for adding interactive glitch effects to text on hover" />
         <script src="/corrupt.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
         <style>{`
           /* Font fallback stack for better Unicode support */
           body {
@@ -41,6 +42,43 @@ export default function Home() {
           .corrupt:hover {
             cursor: pointer;
             filter: contrast(1.2) brightness(1.1);
+          }
+
+          /* Neo-brutalist slider styles */
+          input[type="range"].slider {
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+          }
+
+          input[type="range"].slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: black;
+            border: 3px solid white;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+          }
+
+          input[type="range"].slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: black;
+            border: 3px solid white;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+          }
+
+          input[type="range"].slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+          }
+
+          input[type="range"].slider::-moz-range-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
           }
         `}</style>
       </Head>

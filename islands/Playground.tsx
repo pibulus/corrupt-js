@@ -9,6 +9,15 @@ export default function Playground() {
   const textRef = useRef<HTMLHeadingElement>(null);
   const corruptInstance = useRef<any>(null);
 
+  const styles = [
+    { value: 'witch', label: 'Witch', icon: '†' },
+    { value: 'matrix', label: 'Matrix', icon: '01' },
+    { value: 'sparkle', label: 'Sparkle', icon: '✨' },
+    { value: 'dots', label: 'Dots', icon: '•••' },
+    { value: 'melt', label: 'Melt', icon: '▼' },
+    { value: 'wave', label: 'Wave', icon: '~' },
+  ];
+
   // Apply corruption when settings change
   useEffect(() => {
     if (textRef.current && typeof window !== 'undefined') {
@@ -42,104 +51,126 @@ export default function Playground() {
   }, [style.value, intensity.value, speed.value]);
 
   return (
-    <div class="bg-white rounded-lg border-4 border-black p-4 sm:p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
-      {/* Display Text */}
-      <div class="mb-6 md:mb-8 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg border-2 border-gray-200">
+    <div class="max-w-2xl mx-auto">
+      {/* Display Area - No title, just the interactive text */}
+      <div class="bg-yellow-100 border-4 border-black p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-8">
         <h1
           ref={textRef}
-          class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-center cursor-pointer select-none break-words"
+          class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-center cursor-pointer select-none break-words transition-all hover:scale-105"
+          style="font-family: 'Space Mono', 'Courier New', monospace;"
         >
           {text.value}
         </h1>
       </div>
 
-      {/* Simple Controls */}
-      <div class="space-y-6">
+      {/* Controls Panel */}
+      <div class="bg-pink-100 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-6">
         {/* Text Input */}
         <div>
-          <label class="block text-sm font-bold mb-2">Your Text</label>
+          <label class="block text-sm font-black uppercase mb-2">Text</label>
           <input
             type="text"
             value={text.value}
             onInput={(e) => text.value = e.currentTarget.value}
-            class="w-full px-4 py-3 border-2 border-black rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+            class="w-full px-4 py-3 border-3 border-black bg-white text-lg font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
             placeholder="Type something fun..."
+            style="font-family: 'Space Mono', monospace;"
           />
         </div>
 
-        {/* Style Buttons */}
+        {/* Style Dropdown */}
         <div>
-          <label class="block text-sm font-bold mb-3">Choose Style</label>
-          <div class="grid grid-cols-3 gap-2">
-            {[
-              { value: 'witch', label: '† Witch' },
-              { value: 'matrix', label: '01 Matrix' },
-              { value: 'sparkle', label: '✨ Sparkle' },
-              { value: 'dots', label: '• Dots' },
-              { value: 'melt', label: '▼ Melt' },
-              { value: 'wave', label: '~ Wave' },
-            ].map(({ value, label }) => (
-              <button
-                key={value}
-                onClick={() => style.value = value}
-                class={`px-4 py-2 border-2 border-black rounded font-bold transition-all ${
-                  style.value === value
-                    ? 'bg-black text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]'
-                    : 'bg-white hover:bg-gray-100'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+          <label class="block text-sm font-black uppercase mb-2">Style</label>
+          <div class="relative">
+            <select
+              value={style.value}
+              onChange={(e) => style.value = e.currentTarget.value}
+              class="w-full appearance-none px-4 py-3 pr-10 border-3 border-black bg-white text-lg font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
+              style="font-family: 'Space Mono', monospace;"
+            >
+              {styles.map(({ value, label, icon }) => (
+                <option key={value} value={value}>
+                  {icon} {label}
+                </option>
+              ))}
+            </select>
+            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
         </div>
 
-        {/* Intensity Slider */}
-        <div>
-          <label class="block text-sm font-bold mb-2">
-            Intensity: <span class="text-pink-500">{intensity.value}%</span>
-          </label>
-          <input
-            type="range"
-            min="10"
-            max="100"
-            step="10"
-            value={intensity.value}
-            onInput={(e) => intensity.value = parseInt(e.currentTarget.value)}
-            class="w-full accent-pink-500"
-          />
-          <div class="flex justify-between text-xs text-gray-500 mt-1">
-            <span>Subtle</span>
-            <span>Wild</span>
+        {/* Neo-brutalist Sliders */}
+        <div class="space-y-4">
+          {/* Intensity Slider */}
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-black uppercase">Intensity</label>
+              <span class="text-sm font-black bg-black text-white px-2 py-1">{intensity.value}%</span>
+            </div>
+            <div class="relative">
+              <input
+                type="range"
+                min="10"
+                max="100"
+                step="10"
+                value={intensity.value}
+                onInput={(e) => intensity.value = parseInt(e.currentTarget.value)}
+                class="w-full h-3 bg-white border-2 border-black appearance-none cursor-pointer slider"
+                style={`
+                  background: linear-gradient(to right,
+                    black 0%,
+                    black ${intensity.value}%,
+                    white ${intensity.value}%,
+                    white 100%);
+                `}
+              />
+              <div class="flex justify-between text-xs font-bold mt-1">
+                <span>SUBTLE</span>
+                <span>WILD</span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Speed Slider */}
-        <div>
-          <label class="block text-sm font-bold mb-2">
-            Speed: <span class="text-pink-500">{speed.value}%</span>
-          </label>
-          <input
-            type="range"
-            min="10"
-            max="100"
-            step="10"
-            value={speed.value}
-            onInput={(e) => speed.value = parseInt(e.currentTarget.value)}
-            class="w-full accent-pink-500"
-          />
-          <div class="flex justify-between text-xs text-gray-500 mt-1">
-            <span>Slow</span>
-            <span>Fast</span>
+          {/* Speed Slider */}
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-black uppercase">Speed</label>
+              <span class="text-sm font-black bg-black text-white px-2 py-1">{speed.value}%</span>
+            </div>
+            <div class="relative">
+              <input
+                type="range"
+                min="10"
+                max="100"
+                step="10"
+                value={speed.value}
+                onInput={(e) => speed.value = parseInt(e.currentTarget.value)}
+                class="w-full h-3 bg-white border-2 border-black appearance-none cursor-pointer slider"
+                style={`
+                  background: linear-gradient(to right,
+                    black 0%,
+                    black ${speed.value}%,
+                    white ${speed.value}%,
+                    white 100%);
+                `}
+              />
+              <div class="flex justify-between text-xs font-bold mt-1">
+                <span>SLOW</span>
+                <span>FAST</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Code Output */}
-      <div class="mt-8">
-        <label class="block text-sm font-bold mb-2">Your Code:</label>
-        <div class="bg-gray-900 text-green-400 p-4 rounded font-mono text-xs overflow-x-auto">
-          <pre>{`<span
+      <div class="mt-8 bg-black border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <label class="block text-sm font-black uppercase mb-3 text-green-400">CODE</label>
+        <div class="text-green-400 font-mono text-xs overflow-x-auto">
+          <pre style="font-family: 'Space Mono', 'Courier New', monospace;">{`<span
   class="corrupt"
   data-corrupt-style="${style.value}"
   data-corrupt-rate="${(intensity.value / 200).toFixed(2)}"
