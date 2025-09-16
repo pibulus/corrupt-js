@@ -49,7 +49,7 @@ export default function Home() {
         {/* Hero Section */}
         <header class="container mx-auto px-4 py-16 text-center">
           <h1 class="text-5xl sm:text-6xl md:text-8xl font-black mb-4 tracking-tight">
-            <span class="corrupt" data-corrupt-style="witchhouse">
+            <span class="corrupt" data-corrupt-style="witch">
               CORRUPT
             </span>
             <span class="text-pink-500">.</span>
@@ -67,7 +67,7 @@ export default function Home() {
               href="/corrupt.min.js"
               download
               class="px-6 sm:px-8 py-3 bg-black text-white font-bold rounded-lg border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all corrupt"
-              data-corrupt-style="glitch"
+              data-corrupt-style="wave"
             >
               DOWNLOAD
             </a>
@@ -83,28 +83,24 @@ export default function Home() {
           <div class="mt-8 text-sm text-gray-600">
             <span class="corrupt" data-corrupt-style="melt">3.9kb minified</span>
             <span class="mx-2">•</span>
-            <span class="corrupt" data-corrupt-style="ascii">Zero dependencies</span>
+            <span class="corrupt" data-corrupt-style="dots">Zero dependencies</span>
             <span class="mx-2">•</span>
-            <span class="corrupt" data-corrupt-style="zalgo">MIT License</span>
+            <span class="corrupt" data-corrupt-style="sparkle">MIT License</span>
           </div>
         </header>
 
         {/* Examples Grid */}
         <section class="container mx-auto px-4 py-12">
-          <h2 class="text-3xl font-black mb-8 text-center">All 10 Built-in Styles</h2>
+          <h2 class="text-3xl font-black mb-8 text-center">6 Built-in Styles</h2>
 
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto">
             {[
-              { style: 'witchhouse', text: '†WITCH†', desc: 'Occult shake' },
-              { style: 'glitch', text: 'GLITCH', desc: 'Rapid flicker' },
+              { style: 'witch', text: '†WITCH†', desc: 'Occult shake' },
               { style: 'matrix', text: 'MATRIX', desc: 'Digital type' },
               { style: 'sparkle', text: '✦SPARKLE✦', desc: 'Twinkles magic' },
-              { style: 'zalgo', text: '【ZALGO】', desc: 'Explodes chaos' },
-              { style: 'melt', text: 'MELT▼', desc: 'Drips down' },
-              { style: 'ascii', text: '@ASCII#', desc: 'Classic random' },
-              { style: 'binary', text: '01010', desc: 'Wave pattern' },
-              { style: 'hex', text: '0xHEX', desc: 'Cascades data' },
               { style: 'dots', text: '•DOTS•', desc: 'Subtle twinkle' },
+              { style: 'melt', text: 'MELT▼', desc: 'Drips down' },
+              { style: 'wave', text: '~WAVE~', desc: 'Flows across' },
             ].map(({ style, text, desc }) => (
               <div
                 key={style}

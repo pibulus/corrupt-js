@@ -2,14 +2,10 @@ import { useSignal } from "@preact/signals";
 import { useEffect, useRef } from "preact/hooks";
 
 export default function Playground() {
-  const text = useSignal("TYPE YOUR TEXT HERE");
-  const style = useSignal("glitch");
-  const rate = useSignal(0.3);
-  const maxCorruptions = useSignal(2);
-  const mode = useSignal("random");
-  const easing = useSignal("easeOut");
-  const duration = useSignal(1000);
-  const sticky = useSignal(false);
+  const text = useSignal("HOVER TO CORRUPT");
+  const style = useSignal("witch");
+  const intensity = useSignal(50);  // 0-100 scale for simplicity
+  const speed = useSignal(50);  // 0-100 scale for speed
   const textRef = useRef<HTMLHeadingElement>(null);
   const corruptInstance = useRef<any>(null);
 
@@ -27,19 +23,23 @@ export default function Playground() {
       // Create new Corrupt instance with current settings
       // @ts-ignore
       if (window.Corrupt) {
+        // Convert intensity (0-100) to rate (0-1) and maxCorruptions (1-5)
+        const rate = intensity.value / 200;  // 50% = 0.25 rate
+        const maxCorruptions = Math.ceil(intensity.value / 20);  // 50% = 3 chars
+
+        // Convert speed (0-100) to duration (2000-200ms)
+        const duration = 2200 - (speed.value * 20);  // 50% = 1200ms
+
         // @ts-ignore
         corruptInstance.current = new window.Corrupt(textRef.current, {
           style: style.value,
-          rate: rate.value,
-          maxCorruptions: maxCorruptions.value,
-          mode: mode.value,
-          easing: easing.value,
-          duration: duration.value,
-          sticky: sticky.value
+          rate: rate,
+          maxCorruptions: maxCorruptions,
+          duration: duration
         });
       }
     }
-  }, [style.value, rate.value, maxCorruptions.value, mode.value, easing.value, duration.value, sticky.value]);
+  }, [style.value, intensity.value, speed.value]);
 
   return (
     <div class="bg-white rounded-lg border-4 border-black p-4 sm:p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
@@ -53,137 +53,85 @@ export default function Playground() {
         </h1>
       </div>
 
-      {/* Controls Grid */}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Simple Controls */}
+      <div class="space-y-6">
         {/* Text Input */}
         <div>
-          <label class="block text-sm font-bold mb-2">Text Content</label>
+          <label class="block text-sm font-bold mb-2">Your Text</label>
           <input
             type="text"
             value={text.value}
             onInput={(e) => text.value = e.currentTarget.value}
-            class="w-full px-4 py-2 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
-            placeholder="Enter your text..."
+            class="w-full px-4 py-3 border-2 border-black rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+            placeholder="Type something fun..."
           />
         </div>
 
-        {/* Style Selector */}
+        {/* Style Buttons */}
         <div>
-          <label class="block text-sm font-bold mb-2">Corruption Style</label>
-          <select
-            value={style.value}
-            onChange={(e) => style.value = e.currentTarget.value}
-            class="w-full px-4 py-2 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
-          >
-            <option value="witchhouse">Witchhouse</option>
-            <option value="sparkle">Sparkle</option>
-            <option value="matrix">Matrix</option>
-            <option value="glitch">Glitch</option>
-            <option value="zalgo">Zalgo</option>
-            <option value="melt">Melt</option>
-            <option value="ascii">ASCII</option>
-            <option value="binary">Binary</option>
-            <option value="hex">Hex</option>
-            <option value="dots">Dots</option>
-          </select>
+          <label class="block text-sm font-bold mb-3">Choose Style</label>
+          <div class="grid grid-cols-3 gap-2">
+            {[
+              { value: 'witch', label: '† Witch' },
+              { value: 'matrix', label: '01 Matrix' },
+              { value: 'sparkle', label: '✨ Sparkle' },
+              { value: 'dots', label: '• Dots' },
+              { value: 'melt', label: '▼ Melt' },
+              { value: 'wave', label: '~ Wave' },
+            ].map(({ value, label }) => (
+              <button
+                key={value}
+                onClick={() => style.value = value}
+                class={`px-4 py-2 border-2 border-black rounded font-bold transition-all ${
+                  style.value === value
+                    ? 'bg-black text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]'
+                    : 'bg-white hover:bg-gray-100'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Corruption Rate */}
+        {/* Intensity Slider */}
         <div>
           <label class="block text-sm font-bold mb-2">
-            Corruption Rate: {(rate.value * 100).toFixed(0)}%
+            Intensity: <span class="text-pink-500">{intensity.value}%</span>
           </label>
           <input
             type="range"
-            min="0"
-            max="1"
-            step="0.05"
-            value={rate.value}
-            onInput={(e) => rate.value = parseFloat(e.currentTarget.value)}
-            class="w-full"
+            min="10"
+            max="100"
+            step="10"
+            value={intensity.value}
+            onInput={(e) => intensity.value = parseInt(e.currentTarget.value)}
+            class="w-full accent-pink-500"
           />
+          <div class="flex justify-between text-xs text-gray-500 mt-1">
+            <span>Subtle</span>
+            <span>Wild</span>
+          </div>
         </div>
 
-        {/* Max Corruptions */}
+        {/* Speed Slider */}
         <div>
           <label class="block text-sm font-bold mb-2">
-            Max Characters: {maxCorruptions.value}
+            Speed: <span class="text-pink-500">{speed.value}%</span>
           </label>
           <input
             type="range"
-            min="1"
-            max="10"
-            step="1"
-            value={maxCorruptions.value}
-            onInput={(e) => maxCorruptions.value = parseInt(e.currentTarget.value)}
-            class="w-full"
+            min="10"
+            max="100"
+            step="10"
+            value={speed.value}
+            onInput={(e) => speed.value = parseInt(e.currentTarget.value)}
+            class="w-full accent-pink-500"
           />
-        </div>
-
-        {/* Animation Mode */}
-        <div>
-          <label class="block text-sm font-bold mb-2">Animation Mode</label>
-          <select
-            value={mode.value}
-            onChange={(e) => mode.value = e.currentTarget.value}
-            class="w-full px-4 py-2 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
-          >
-            <option value="random">Random (Default)</option>
-            <option value="cascade">Cascade</option>
-            <option value="explode">Explode</option>
-            <option value="shake">Shake</option>
-            <option value="fade">Fade</option>
-            <option value="typewriter">Typewriter</option>
-            <option value="wave">Wave</option>
-            <option value="flicker">Flicker</option>
-          </select>
-        </div>
-
-        {/* Easing Function */}
-        <div>
-          <label class="block text-sm font-bold mb-2">Easing</label>
-          <select
-            value={easing.value}
-            onChange={(e) => easing.value = e.currentTarget.value}
-            class="w-full px-4 py-2 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
-          >
-            <option value="linear">Linear</option>
-            <option value="easeIn">Ease In</option>
-            <option value="easeOut">Ease Out</option>
-            <option value="easeInOut">Ease In Out</option>
-            <option value="bounce">Bounce</option>
-            <option value="elastic">Elastic</option>
-          </select>
-        </div>
-
-        {/* Duration */}
-        <div>
-          <label class="block text-sm font-bold mb-2">
-            Duration: {duration.value}ms
-          </label>
-          <input
-            type="range"
-            min="200"
-            max="3000"
-            step="100"
-            value={duration.value}
-            onInput={(e) => duration.value = parseInt(e.currentTarget.value)}
-            class="w-full"
-          />
-        </div>
-
-        {/* Sticky Effect */}
-        <div>
-          <label class="block text-sm font-bold mb-2">Options</label>
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={sticky.value}
-              onChange={(e) => sticky.value = e.currentTarget.checked}
-              class="w-4 h-4"
-            />
-            <span>Sticky (10% chance to stay corrupted)</span>
-          </label>
+          <div class="flex justify-between text-xs text-gray-500 mt-1">
+            <span>Slow</span>
+            <span>Fast</span>
+          </div>
         </div>
       </div>
 
@@ -194,8 +142,8 @@ export default function Playground() {
           <pre>{`<span
   class="corrupt"
   data-corrupt-style="${style.value}"
-  data-corrupt-rate="${rate.value}"
-  data-corrupt-chars="${maxCorruptions.value}"
+  data-corrupt-rate="${(intensity.value / 200).toFixed(2)}"
+  data-corrupt-chars="${Math.ceil(intensity.value / 20)}"
 >
   ${text.value}
 </span>
@@ -204,11 +152,9 @@ export default function Playground() {
 <script>
 new Corrupt('.my-text', {
   style: '${style.value}',
-  rate: ${rate.value},
-  maxCorruptions: ${maxCorruptions.value},
-  mode: '${mode.value}',
-  easing: '${easing.value}',
-  duration: ${duration.value}${sticky.value ? ',\n  sticky: true' : ''}
+  rate: ${(intensity.value / 200).toFixed(2)},
+  maxCorruptions: ${Math.ceil(intensity.value / 20)},
+  duration: ${2200 - (speed.value * 20)}
 });
 </script>`}</pre>
         </div>
