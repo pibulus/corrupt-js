@@ -73,31 +73,32 @@ export default function Home() {
 
         {/* Examples Grid */}
         <section class="container mx-auto px-4 py-12">
-          <h2 class="text-3xl font-black mb-8 text-center">Built-in Styles</h2>
+          <h2 class="text-3xl font-black mb-8 text-center">All 10 Built-in Styles</h2>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
             {[
-              { style: 'witchhouse', text: 'WITCHHOUSE', desc: 'Dark occult vibes • Shakes violently' },
-              { style: 'sparkle', text: 'SPARKLE', desc: 'Cute chaos • Cascades left to right' },
-              { style: 'matrix', text: 'MATRIX', desc: 'Digital rain • Types out corruption' },
-              { style: 'glitch', text: 'GLITCH', desc: 'Classic corruption • Rapid flicker' },
-              { style: 'zalgo', text: 'ZALGO', desc: 'Cursed text • Explodes from center' },
-              { style: 'melt', text: 'MELT', desc: 'Dripping pixels • Fades in/out' },
+              { style: 'witchhouse', text: '†WITCH†', desc: 'Occult shake' },
+              { style: 'glitch', text: 'GLITCH', desc: 'Rapid flicker' },
+              { style: 'matrix', text: 'MATRIX', desc: 'Digital type' },
+              { style: 'sparkle', text: '✦SPARKLE✦', desc: 'Twinkles magic' },
+              { style: 'zalgo', text: '【ZALGO】', desc: 'Explodes chaos' },
+              { style: 'melt', text: 'MELT▼', desc: 'Drips down' },
+              { style: 'ascii', text: '@ASCII#', desc: 'Classic random' },
+              { style: 'binary', text: '01010', desc: 'Wave pattern' },
+              { style: 'hex', text: '0xHEX', desc: 'Cascades data' },
+              { style: 'dots', text: '•DOTS•', desc: 'Subtle twinkle' },
             ].map(({ style, text, desc }) => (
               <div
                 key={style}
-                class="bg-white rounded-lg border-4 border-black p-4 md:p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[3px] hover:translate-y-[3px] transition-all"
+                class="bg-white rounded-lg border-3 border-black p-3 md:p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
               >
                 <h3
-                  class="text-2xl font-black mb-2 corrupt cursor-pointer"
+                  class="text-lg font-black mb-1 corrupt cursor-pointer text-center"
                   data-corrupt-style={style}
                 >
                   {text}
                 </h3>
-                <p class="text-gray-600">{desc}</p>
-                <code class="block mt-3 text-xs bg-gray-100 p-2 rounded">
-                  data-corrupt-style="{style}"
-                </code>
+                <p class="text-xs text-gray-600 text-center">{desc}</p>
               </div>
             ))}
           </div>
