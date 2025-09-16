@@ -1,0 +1,43 @@
+{
+  "name": "corrupt-js",
+  "version": "0.1.0",
+  "description": "Interactive text corruption library. Zero dependencies. Pure vibes.",
+  "main": "lib/corrupt.js",
+  "unpkg": "lib/corrupt.min.js",
+  "jsdelivr": "lib/corrupt.min.js",
+  "files": [
+    "lib/",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "minify": "esbuild lib/corrupt.js --minify --outfile=lib/corrupt.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pibulus/corrupt-js.git"
+  },
+  "keywords": [
+    "text",
+    "corruption",
+    "glitch",
+    "hover",
+    "interactive",
+    "animation",
+    "effect",
+    "typography",
+    "witchhouse",
+    "sparkle",
+    "matrix",
+    "zalgo",
+    "lightweight",
+    "vanilla",
+    "no-dependencies"
+  ],
+  "author": "Pablo Alvarado <pibulus@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pibulus/corrupt-js/issues"
+  },
+  "homepage": "https://github.com/pibulus/corrupt-js#readme"
+}

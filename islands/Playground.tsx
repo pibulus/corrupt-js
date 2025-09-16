@@ -40,12 +40,12 @@ export default function Playground() {
   }, [style.value, rate.value, maxCorruptions.value, flicker.value, wave.value, sticky.value]);
 
   return (
-    <div class="bg-white rounded-lg border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
+    <div class="bg-white rounded-lg border-4 border-black p-4 sm:p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
       {/* Display Text */}
-      <div class="mb-8 p-8 bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg border-2 border-gray-200">
+      <div class="mb-6 md:mb-8 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg border-2 border-gray-200">
         <h1
           ref={textRef}
-          class="text-4xl md:text-6xl font-black text-center cursor-pointer select-none"
+          class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-center cursor-pointer select-none break-words"
         >
           {text.value}
         </h1>

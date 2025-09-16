@@ -13,7 +13,7 @@ export default function Home() {
       <div class="min-h-screen bg-gradient-to-br from-purple-100 to-pink-100">
         {/* Hero Section */}
         <header class="container mx-auto px-4 py-16 text-center">
-          <h1 class="text-6xl md:text-8xl font-black mb-4 tracking-tight">
+          <h1 class="text-5xl sm:text-6xl md:text-8xl font-black mb-4 tracking-tight">
             <span class="corrupt" data-corrupt-style="witchhouse">
               CORRUPT
             </span>
@@ -23,7 +23,7 @@ export default function Home() {
             </span>
           </h1>
 
-          <p class="text-xl md:text-2xl text-gray-700 mb-8 font-medium">
+          <p class="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8 font-medium max-w-2xl mx-auto">
             Interactive text corruption on hover. Zero dependencies. Pure vibes.
           </p>
 
@@ -31,14 +31,14 @@ export default function Home() {
             <a
               href="/corrupt.min.js"
               download
-              class="px-8 py-3 bg-black text-white font-bold rounded-lg border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all corrupt"
+              class="px-6 sm:px-8 py-3 bg-black text-white font-bold rounded-lg border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all corrupt"
               data-corrupt-style="glitch"
             >
               DOWNLOAD
             </a>
             <a
               href="https://github.com/pibulus/corrupt-js"
-              class="px-8 py-3 bg-white text-black font-bold rounded-lg border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all corrupt"
+              class="px-6 sm:px-8 py-3 bg-white text-black font-bold rounded-lg border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all corrupt"
               data-corrupt-style="matrix"
             >
               GITHUB
@@ -58,7 +58,7 @@ export default function Home() {
         <section class="container mx-auto px-4 py-12">
           <h2 class="text-3xl font-black mb-8 text-center">Built-in Styles</h2>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
               { style: 'witchhouse', text: 'WITCHHOUSE', desc: 'Dark occult vibes' },
               { style: 'sparkle', text: 'SPARKLE', desc: 'Cute chaos energy' },
@@ -69,7 +69,7 @@ export default function Home() {
             ].map(({ style, text, desc }) => (
               <div
                 key={style}
-                class="bg-white rounded-lg border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[3px] hover:translate-y-[3px] transition-all"
+                class="bg-white rounded-lg border-4 border-black p-4 md:p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-[3px] hover:translate-y-[3px] transition-all"
               >
                 <h3
                   class="text-2xl font-black mb-2 corrupt cursor-pointer"
@@ -96,7 +96,7 @@ export default function Home() {
         <section class="container mx-auto px-4 py-12 max-w-4xl">
           <h2 class="text-3xl font-black mb-8 text-center">Quick Start</h2>
 
-          <div class="bg-black text-green-400 p-6 rounded-lg font-mono text-sm overflow-x-auto">
+          <div class="bg-black text-green-400 p-4 md:p-6 rounded-lg font-mono text-xs sm:text-sm overflow-x-auto">
             <pre>{`<!-- 1. Include the library -->
 <script src="corrupt.min.js"></script>
 
