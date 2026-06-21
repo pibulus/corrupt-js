@@ -150,6 +150,8 @@ export default function Home() {
               { style: 'dots', text: '•DOTS•', desc: 'Subtle twinkle' },
               { style: 'melt', text: 'MELT▼', desc: 'Drips down' },
               { style: 'wave', text: '~WAVE~', desc: 'Flows across' },
+              { style: 'burroughs', text: 'CUT-UP', desc: 'Word rearrangement' },
+              { style: 'collapse', text: 'COLLAPSE', desc: 'Glitch → Decay → Sigil' },
             ].map(({ style, text, desc }) => (
               <div
                 key={style}

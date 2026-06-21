@@ -17,6 +17,8 @@ export default function Playground() {
     { value: 'dots', label: 'Dots', icon: '•••' },
     { value: 'melt', label: 'Melt', icon: '▼' },
     { value: 'wave', label: 'Wave', icon: '~' },
+    { value: 'burroughs', label: 'Burroughs', icon: '✂' },
+    { value: 'collapse', label: 'Collapse', icon: '▓' },
   ];
 
   // Apply corruption when settings change
