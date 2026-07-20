@@ -1,0 +1,38 @@
+# Launch hints for Launch Arsenal.
+# Edit aggressively. These fields should pin the app's real audience, problem, and promise.
+name: corrupt-js
+slug: corrupt-js
+app_type: web-app
+audience: people who already feel the problem
+problem: >-
+  the usual flow still takes more setup, clicks, or context switching than it
+  should
+promise: Interactive text corruption library. Zero dependencies. Pure vibes.
+cta: 'See it at https://github.com/pibulus/corrupt-js#readme'
+differentiators:
+  - "\U0001F3AF Simple API - Just add a class to any element"
+  - "\U0001F527 Customizable - Control rate, characters, effects"
+  - >-
+    The demo site is deployed at https://corrupt.hexbloop.com via Deno Deploy.
+    The library is distributed via: - NPM: corrupt-js package - CDN: jsDelivr
+    auto-serves from GitHub - Direct download from demo site
+  - 'Control corruption via HTML attributes:'
+proof_points:
+  - "\U0001F3A8 7 Built-in Styles - Witchhouse, Sparkle, Matrix, Glitch, Zalgo, Melt, ASCII"
+  - "\U0001FAB6 Lightweight - 3.9kb minified, zero dependencies"
+  - "\U0001F3AF Simple API - Just add a class to any element"
+  - '⚡ Interactive - Corrupts on hover, not just on reveal'
+objections:
+  - 'Still wants a human pass on audience, proof, and the sharpest angle.'
+keywords:
+  seed:
+    - text
+    - corruption
+    - glitch
+    - hover
+  audience: people who already feel the problem
+  intent:
+    - launch faster
+    - clearer first draft
+manual_notes:
+  - Edit this aggressively. Keep only the lines that feel native to the app.
